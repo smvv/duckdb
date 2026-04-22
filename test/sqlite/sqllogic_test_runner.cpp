@@ -1,4 +1,3 @@
-
 #include "sqllogic_test_runner.hpp"
 
 #include "catch.hpp"

@@ -1,4 +1,3 @@
-
 #include "core_functions/scalar/list_functions.hpp"
 #include "duckdb/common/types/data_chunk.hpp"
 #include "duckdb/storage/statistics/list_stats.hpp"

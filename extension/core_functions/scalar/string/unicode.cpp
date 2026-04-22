@@ -1,4 +1,3 @@
-
 #include "core_functions/scalar/string_functions.hpp"
 #include "utf8proc.hpp"
 #include "duckdb/common/numeric_utils.hpp"

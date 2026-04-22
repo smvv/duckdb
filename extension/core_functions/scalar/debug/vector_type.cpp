@@ -1,4 +1,3 @@
-
 #include "core_functions/scalar/debug_functions.hpp"
 #include "duckdb/common/enum_util.hpp"
 #include "duckdb/common/enums/vector_type.hpp"

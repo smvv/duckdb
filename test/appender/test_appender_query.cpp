@@ -1,4 +1,3 @@
-
 #include "catch.hpp"
 #include "duckdb/main/appender.hpp"
 #include "test_helpers.hpp"

@@ -1,4 +1,3 @@
-
 #include "parquet_geometry.hpp"
 
 #include <stdlib.h>

@@ -1,4 +1,3 @@
-
 #include "duckdb/common/exception.hpp"
 #include "duckdb/common/hugeint.hpp"
 #include "duckdb/common/operator/subtract.hpp"

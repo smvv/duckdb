@@ -1,4 +1,3 @@
-
 #include "core_functions/scalar/operators_functions.hpp"
 #include "duckdb/common/types/cast_helpers.hpp"
 #include "duckdb/common/types/bit.hpp"

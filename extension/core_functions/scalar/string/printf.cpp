@@ -1,4 +1,3 @@
-
 #include "core_functions/scalar/string_functions.hpp"
 #include "fmt/format.h"
 #include "fmt/printf.h"

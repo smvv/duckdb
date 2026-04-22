@@ -1,4 +1,3 @@
-
 #include "duckdb/common/vector/list_vector.hpp"
 #include "duckdb/common/vector_operations/binary_executor.hpp"
 #include "core_functions/scalar/string_functions.hpp"

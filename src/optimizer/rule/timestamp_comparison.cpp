@@ -1,4 +1,3 @@
-
 #include "duckdb/optimizer/rule/timestamp_comparison.hpp"
 #include "duckdb/optimizer/matcher/expression_matcher.hpp"
 #include "duckdb/planner/expression_iterator.hpp"

@@ -1,4 +1,3 @@
-
 #include "duckdb/common/uhugeint.hpp"
 #include "duckdb/common/types/column/column_data_collection.hpp"
 #include "core_functions/aggregate/distributive_functions.hpp"

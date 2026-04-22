@@ -1,4 +1,3 @@
-
 #include "core_functions/aggregate/holistic_functions.hpp"
 #include "duckdb/planner/expression.hpp"
 #include "duckdb/common/operator/cast_operators.hpp"

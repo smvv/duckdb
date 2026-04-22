@@ -1,4 +1,3 @@
-
 #include "core_functions/scalar/date_functions.hpp"
 #include "duckdb/common/types/interval.hpp"
 #include "duckdb/common/types/timestamp.hpp"

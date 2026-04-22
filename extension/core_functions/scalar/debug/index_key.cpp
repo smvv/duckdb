@@ -1,4 +1,3 @@
-
 #include "core_functions/scalar/debug_functions.hpp"
 #include "duckdb/catalog/catalog.hpp"
 #include "duckdb/catalog/catalog_entry/duck_table_entry.hpp"

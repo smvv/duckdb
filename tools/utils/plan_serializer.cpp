@@ -1,4 +1,3 @@
-
 #include "duckdb.hpp"
 #include "duckdb/common/serializer/buffered_file_reader.hpp"
 #include "duckdb/common/serializer/buffered_file_writer.hpp"

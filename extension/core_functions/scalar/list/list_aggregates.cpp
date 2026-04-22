@@ -1,4 +1,3 @@
-
 #include "core_functions/scalar/list_functions.hpp"
 #include "core_functions/aggregate/nested_functions.hpp"
 #include "duckdb/catalog/catalog.hpp"

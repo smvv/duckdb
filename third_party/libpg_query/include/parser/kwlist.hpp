@@ -1,4 +1,3 @@
-
 namespace duckdb_libpgquery {
 #define PG_KEYWORD(a,b,c) {a,b,c},
 

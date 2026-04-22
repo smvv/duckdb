@@ -1,4 +1,3 @@
-
 #include "duckdb/common/exception.hpp"
 #include "duckdb/common/operator/comparison_operators.hpp"
 #include "core_functions/aggregate/distributive_functions.hpp"

@@ -1,4 +1,3 @@
-
 #include "core_functions/aggregate/distributive_functions.hpp"
 #include "duckdb/common/exception.hpp"
 #include "duckdb/execution/expression_executor.hpp"

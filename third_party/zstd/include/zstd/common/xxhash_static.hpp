@@ -1,4 +1,3 @@
-
 /* ================================================================================================
    This section contains definitions which are not guaranteed to remain stable.
    They may change in future versions, becoming incompatible with a different version of the library.

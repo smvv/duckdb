@@ -1,4 +1,3 @@
-
 #include "duckdb/optimizer/statistics_propagator.hpp"
 #include "duckdb/planner/operator/logical_order.hpp"
 

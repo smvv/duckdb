@@ -1,4 +1,3 @@
-
 #include "duckdb/optimizer/rule/conjunction_simplification.hpp"
 
 #include "duckdb/execution/expression_executor.hpp"

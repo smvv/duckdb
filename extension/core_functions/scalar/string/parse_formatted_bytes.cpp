@@ -1,4 +1,3 @@
-
 #include "duckdb/function/scalar_function.hpp"
 #include "core_functions/scalar/string_functions.hpp"
 #include "duckdb/common/string_util.hpp"

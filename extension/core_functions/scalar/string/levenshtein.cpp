@@ -1,4 +1,3 @@
-
 #include "core_functions/scalar/string_functions.hpp"
 #include "duckdb/common/helper.hpp"
 #include "duckdb/common/typedefs.hpp"
