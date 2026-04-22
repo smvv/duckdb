@@ -1,5 +1,3 @@
-#include <stdint.h>
-#include <memory>
 
 #include "core_functions/scalar/date_functions.hpp"
 #include "duckdb/common/operator/cast_operators.hpp"

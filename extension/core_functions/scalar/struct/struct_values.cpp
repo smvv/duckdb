@@ -1,5 +1,3 @@
-#include <utility>
-#include <vector>
 
 #include "duckdb/common/vector/struct_vector.hpp"
 #include "duckdb/common/types/vector.hpp"

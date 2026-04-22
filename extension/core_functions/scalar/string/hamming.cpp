@@ -1,5 +1,3 @@
-#include <stdint.h>
-#include <memory>
 
 #include "core_functions/scalar/string_functions.hpp"
 #include "duckdb/common/exception.hpp"

@@ -1,4 +1,3 @@
-#include <memory>
 
 #include "duckdb/common/vector/union_vector.hpp"
 #include "core_functions/scalar/union_functions.hpp"

@@ -1,4 +1,3 @@
-#include <stdint.h>
 
 #include "core_functions/scalar/string_functions.hpp"
 #include "utf8proc.hpp"

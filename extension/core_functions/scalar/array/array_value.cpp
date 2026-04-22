@@ -1,4 +1,3 @@
-#include <string>
 
 #include "duckdb/common/vector/array_vector.hpp"
 #include "core_functions/scalar/array_functions.hpp"

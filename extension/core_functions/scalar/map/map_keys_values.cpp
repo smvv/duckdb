@@ -1,4 +1,3 @@
-#include <string>
 
 #include "duckdb/common/vector/map_vector.hpp"
 #include "core_functions/scalar/map_functions.hpp"

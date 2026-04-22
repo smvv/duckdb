@@ -1,9 +1,3 @@
-#include <stdint.h>
-#include <cstddef>
-#include <string>
-#include <unordered_map>
-#include <utility>
-#include <vector>
 
 #include "duckdb/common/vector/struct_vector.hpp"
 #include "core_functions/scalar/date_functions.hpp"

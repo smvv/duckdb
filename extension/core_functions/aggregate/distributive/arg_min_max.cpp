@@ -1,9 +1,3 @@
-#include <stdint.h>
-#include <string.h>
-#include <new>
-#include <string>
-#include <utility>
-#include <vector>
 
 #include "duckdb/common/exception.hpp"
 #include "duckdb/common/operator/comparison_operators.hpp"

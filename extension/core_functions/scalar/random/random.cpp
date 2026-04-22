@@ -1,5 +1,3 @@
-#include <stdint.h>
-#include <string>
 
 #include "core_functions/scalar/random_functions.hpp"
 #include "duckdb/common/random_engine.hpp"

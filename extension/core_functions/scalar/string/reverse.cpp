@@ -1,5 +1,4 @@
 #include <string.h>
-#include <string>
 
 #include "core_functions/scalar/string_functions.hpp"
 #include "duckdb/common/vector_operations/unary_executor.hpp"

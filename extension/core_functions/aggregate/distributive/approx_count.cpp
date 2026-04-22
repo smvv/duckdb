@@ -1,6 +1,3 @@
-#include <stdint.h>
-#include <memory>
-#include <new>
 
 #include "duckdb/common/exception.hpp"
 #include "duckdb/common/types/hyperloglog.hpp"

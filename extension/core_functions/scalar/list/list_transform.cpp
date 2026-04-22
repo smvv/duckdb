@@ -1,5 +1,3 @@
-#include <memory>
-#include <utility>
 
 #include "core_functions/scalar/list_functions.hpp"
 #include "duckdb/function/lambda_functions.hpp"

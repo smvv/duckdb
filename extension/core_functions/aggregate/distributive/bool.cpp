@@ -1,4 +1,3 @@
-#include <utility>
 
 #include "core_functions/aggregate/distributive_functions.hpp"
 #include "duckdb/common/typedefs.hpp"

@@ -1,7 +1,3 @@
-#include <stdint.h>
-#include <iterator>
-#include <memory>
-#include <string>
 
 #include "core_functions/scalar/string_functions.hpp"
 #include "fmt/format.h"

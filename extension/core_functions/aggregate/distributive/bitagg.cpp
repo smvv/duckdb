@@ -1,7 +1,3 @@
-#include <stdint.h>
-#include <string.h>
-#include <utility>
-#include <vector>
 
 #include "core_functions/aggregate/distributive_functions.hpp"
 #include "duckdb/common/exception.hpp"

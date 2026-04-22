@@ -1,7 +1,3 @@
-#include <stdint.h>
-#include <map>
-#include <unordered_map>
-#include <utility>
 
 #include "duckdb/common/vector/flat_vector.hpp"
 #include "duckdb/common/vector/list_vector.hpp"

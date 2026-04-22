@@ -1,4 +1,3 @@
-#include <utility>
 
 #include "core_functions/aggregate/algebraic_functions.hpp"
 #include "core_functions/aggregate/algebraic/corr.hpp"

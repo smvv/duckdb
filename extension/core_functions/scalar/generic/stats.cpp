@@ -1,4 +1,3 @@
-#include <utility>
 
 #include "core_functions/scalar/generic_functions.hpp"
 #include "duckdb/planner/expression/bound_function_expression.hpp"

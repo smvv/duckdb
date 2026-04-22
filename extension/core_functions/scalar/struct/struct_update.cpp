@@ -1,6 +1,3 @@
-#include <map>
-#include <string>
-#include <utility>
 
 #include "duckdb/common/vector/struct_vector.hpp"
 #include "core_functions/scalar/struct_functions.hpp"
