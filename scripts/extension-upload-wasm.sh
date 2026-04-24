@@ -7,6 +7,11 @@ set -e
 # Ensure we do nothing on failed globs
 shopt -s nullglob
 
+script_dir="$(dirname "$(readlink -f "$0")")"
+if ! command -v s5cmd >/dev/null 2>&1; then
+	"$script_dir/install-s5cmd.sh"
+fi
+
 if [[ -z "${DUCKDB_EXTENSION_SIGNING_PK}" ]]; then
 	# no private key provided, use the test private key (NOT SAFE)
 	# this is made so private.pem at the end of the block will be in
@@ -47,12 +52,12 @@ do
         # compress extension binary
         brotli < $f.append > "$f.brotli"
         # upload compressed extension binary to S3
+	DRY_RUN_PARAM=""
 	if [[ -z "${AWS_SECRET_ACCESS_KEY}" ]]; then
 		#AWS_SECRET_ACCESS_KEY is empty -> dry run
-		aws s3 cp $f.brotli s3://duckdb-core-extensions/$2/$1/$ext.duckdb_extension.wasm --acl public-read --content-encoding br --content-type="application/wasm" --dryrun
-	else
-		aws s3 cp $f.brotli s3://duckdb-core-extensions/$2/$1/$ext.duckdb_extension.wasm --acl public-read --content-encoding br --content-type="application/wasm"
+		DRY_RUN_PARAM="--dry-run"
 	fi
+	s5cmd $DRY_RUN_PARAM cp --acl public-read --content-encoding br --content-type "application/wasm" "$f.brotli" "s3://duckdb-core-extensions/$2/$1/$ext.duckdb_extension.wasm"
 done
 
 # remove private key
