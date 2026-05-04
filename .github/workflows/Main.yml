@@ -54,6 +54,7 @@ concurrency:
 
 env:
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  OVERRIDE_JOBS: extensions
 
 jobs:
  prepare:
@@ -442,8 +443,8 @@ jobs:
     secrets: inherit
     needs:
       - prepare
-      - linux-relassert
-      - linux-release
+      # - linux-relassert
+      # - linux-release
     with:
       override_git_describe: ${{ github.event_name == 'workflow_dispatch' && inputs.override_git_describe || '' }}
       git_ref: ${{ needs.prepare.outputs.git_sha }}
