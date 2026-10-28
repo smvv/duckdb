@@ -392,9 +392,7 @@ class ExtensionSyncTest(unittest.TestCase):
         )
         os.environ['VCPKG_TOOLCHAIN_PATH'] = '/unused/vcpkg.cmake'
         output_dir = self.root / 'new-build'
-        sync.merge_vcpkg_manifests(
-            {'sirius': {'source_dir': 'sirius-duckdb'}}, external_dir, self.root, output_dir
-        )
+        sync.merge_vcpkg_manifests({'sirius': {'source_dir': 'sirius-duckdb'}}, external_dir, self.root, output_dir)
         merged = json.loads((output_dir / 'vcpkg.json').read_text())
         self.assertEqual(merged['dependencies'], ['sirius'])
         self.assertEqual(
