@@ -2,6 +2,7 @@
 
 import contextlib
 import io
+import json
 import os
 import shutil
 import subprocess
@@ -53,6 +54,7 @@ class ExtensionSyncTest(unittest.TestCase):
                     'name': 'avro',
                     'git_url': 'https://example.com/avro',
                     'git_tag': '012345',
+                    'source_dir': None,
                     'submodules': ['third_party/avro-c'],
                     'apply_patches': True,
                 }
@@ -337,6 +339,105 @@ class ExtensionSyncTest(unittest.TestCase):
                     f'sample, "{extensions["sample"]["git_tag"]}"',
                     (build_dir / 'extensions.csv').read_text(),
                 )
+
+    @unittest.skipUnless(CMAKE, 'CMake is required for configuration integration tests')
+    def test_cmake_preserves_submodule_lists(self):
+        os.environ['PATH'] = os.defpath
+        config = self.root / 'extensions.cmake'
+        config.write_text(
+            '''
+            function(register_external_extension)
+                file(WRITE "${CMAKE_BINARY_DIR}/${ARGV0}.submodules" "${ARGV10}")
+            endfunction()
+            duckdb_extension_load(example_list GIT_URL unused GIT_TAG unused SUBMODULES "first;second")
+            duckdb_extension_load(example_empty GIT_URL unused GIT_TAG unused SUBMODULES "")
+            '''
+        )
+        build_dir = self.root / 'build'
+        result = subprocess.run(
+            [
+                CMAKE,
+                '-S',
+                str(REPO_ROOT),
+                '-B',
+                str(build_dir),
+                '-DEXTENSION_CONFIG_BUILD=ON',
+                f'-DDUCKDB_EXTENSION_CONFIGS={config}',
+            ],
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual((build_dir / 'example_list.submodules').read_text(), 'first;second')
+        self.assertEqual((build_dir / 'example_empty.submodules').read_text(), '')
+
+    def test_vcpkg_mergers_preserve_subdirectory_configuration_and_overrides(self):
+        external_dir = self.root / 'external'
+        manifest_dir = external_dir / 'sirius' / 'sirius-duckdb'
+        manifest_dir.mkdir(parents=True)
+        (manifest_dir / 'vcpkg.json').write_text(
+            json.dumps(
+                {
+                    'dependencies': ['sirius'],
+                    'overrides': [
+                        {'name': 'dlpack', 'version': '0.8'},
+                        {'name': 'flatbuffers', 'version': '24.3.25'},
+                    ],
+                    'configuration': {
+                        'overlay-ports': ['vcpkg_ports'],
+                        'overlay-triplets': ['vcpkg_triplets'],
+                    },
+                }
+            )
+        )
+        os.environ['VCPKG_TOOLCHAIN_PATH'] = '/unused/vcpkg.cmake'
+        output_dir = self.root / 'new-build'
+        sync.merge_vcpkg_manifests(
+            {'sirius': {'source_dir': 'sirius-duckdb'}}, external_dir, self.root, output_dir
+        )
+        merged = json.loads((output_dir / 'vcpkg.json').read_text())
+        self.assertEqual(merged['dependencies'], ['sirius'])
+        self.assertEqual(
+            merged['overrides'],
+            [
+                {'name': 'openssl', 'version': '3.6.0'},
+                {'name': 'dlpack', 'version': '0.8'},
+                {'name': 'flatbuffers', 'version': '24.3.25'},
+            ],
+        )
+        self.assertEqual(
+            merged['vcpkg-configuration']['overlay-ports'], [str((manifest_dir / 'vcpkg_ports').resolve())]
+        )
+        self.assertEqual(
+            merged['vcpkg-configuration']['overlay-triplets'], [str((manifest_dir / 'vcpkg_triplets').resolve())]
+        )
+
+        legacy_root = self.root / 'legacy'
+        legacy_manifest = legacy_root / 'wrapper' / 'vcpkg.json'
+        legacy_manifest.parent.mkdir(parents=True)
+        legacy_manifest.write_text(
+            json.dumps(
+                {
+                    'dependencies': ['sirius'],
+                    'overrides': [{'name': 'dlpack', 'version': '0.8'}],
+                    'configuration': {'overlay-ports': ['ports']},
+                }
+            )
+        )
+        (legacy_root / 'build' / 'extension_configuration').mkdir(parents=True)
+        subprocess.run(
+            [sys.executable, str(REPO_ROOT / 'scripts' / 'merge_vcpkg_deps.py'), str(legacy_manifest)],
+            cwd=legacy_root,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        legacy_merged = json.loads((legacy_root / 'build' / 'extension_configuration' / 'vcpkg.json').read_text())
+        self.assertEqual(legacy_merged['overrides'][1], {'name': 'dlpack', 'version': '0.8'})
+        self.assertEqual(
+            legacy_merged['vcpkg-configuration']['overlay-ports'],
+            [str(legacy_manifest.parent / 'ports')],
+        )
 
     def test_sync_clones_only_required_submodule_and_reuses_checkout(self):
         os.environ.update(
