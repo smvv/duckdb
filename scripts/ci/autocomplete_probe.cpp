@@ -14,7 +14,10 @@ int main(int argc, char **argv) {
     duckdb_config config;
     duckdb_create_config(&config);
     duckdb_set_config(config, "allow_unsigned_extensions", "true");
-    duckdb_set_config(config, "autoinstall_known_extensions", "false");
+    duckdb_set_config(config, "autoinstall_known_extensions", "true");
+    duckdb_set_config(config, "autoload_known_extensions", "true");
+    duckdb_set_config(config, "allow_extension_repositories", "allowed");
+    duckdb_set_config(config, "threads", "1");
     duckdb_database db;
     char *error = nullptr;
     if (duckdb_open_ext(nullptr, &db, config, &error) != DuckDBSuccess) {
@@ -23,8 +26,13 @@ int main(int argc, char **argv) {
     }
     duckdb_connection con;
     duckdb_connect(db, &con);
+    std::string repository(argv[1]);
+    for (int i = 0; i < 3; i++) {
+        repository.resize(repository.rfind('/'));
+    }
     const std::string queries[] = {
-        "LOAD '" + std::string(argv[1]) + "';",
+        "SET autoinstall_extension_repository='" + repository + "';",
+        "INSTALL autocomplete FROM '" + repository + "';",
         "SELECT suggestion FROM sql_auto_complete('COPY tbl FROM ''file.csv'' HEAD');",
         "SELECT suggestion FROM sql_auto_complete('SHOW therm');",
         "CALL check_peg_parser('SHOW TABLES FROM db.main');",
