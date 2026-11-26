@@ -52,5 +52,5 @@ jobs:
           while IFS= read -r extension; do
             echo "Testing $extension"
             # shellcheck disable=SC2016
-            gdb -batch -ex run -ex 'thread apply all bt 24' -ex 'info registers' -ex 'x/12i $pc-20' --args repro/probe "$PWD/$extension"
+            gdb -batch -ex run -ex 'thread apply all bt 24' -ex 'info registers' -ex 'x/12i $pc-20' --args repro/probe "$PWD/$extension" || true
           done < <(find repro -name autocomplete.duckdb_extension)

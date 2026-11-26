@@ -4,9 +4,11 @@
 #include <string>
 
 extern "C" int32_t duckdb_extension_core_functions_describe(duckdb_extension_descriptor *);
+extern "C" int32_t duckdb_extension_loadable_extensions_describe(duckdb_extension_descriptor *);
 
 int main(int argc, char **argv) {
-    if (argc != 2 || duckdb_register_static_extension(duckdb_extension_core_functions_describe)) {
+    if (argc != 2 || duckdb_register_static_extension(duckdb_extension_core_functions_describe) ||
+        duckdb_register_static_extension(duckdb_extension_loadable_extensions_describe)) {
         return 2;
     }
     duckdb_config config;
